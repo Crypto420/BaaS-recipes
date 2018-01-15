@@ -6,8 +6,11 @@ FROM eclipse/node
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-RUN apk add -t .gyp --no-cache git python g++ make \
+# update the repository sources list
+# and install dependencies
+RUN apt-get update \
+    && apt-get install -y curl git python build-essential \
     && npm install -g truffle@3.2.x \
-    && apk del .gyp
-
+    && apt-get -y autoclean
+    
 ENTRYPOINT ["truffle"]
