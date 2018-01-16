@@ -7,13 +7,13 @@
 
 # Contributors:
 # Morpheus Labs PTE LTD.
-FROM eclipse/node
-
+FROM eclipse/ubuntu_jre
 
 # update the repository sources list
 # and install dependencies
 RUN apt-get update \
     && apt-get install -y curl git python build-essential \
-    && npm install -g truffle@3.2.x \
+    && npm install -g ethereumjs-testrpc@3.0.x \
     && apt-get -y autoclean
-CMD tail -f /dev/null
+EXPOSE 8545
+ENTRYPOINT ["testrpc"]
