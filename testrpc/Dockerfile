@@ -1,5 +1,5 @@
 
-# Copyright (c) 2012-2016 Codenvy, S.A.
+# Copyright (c) 2017-2018 Morpheus Labs PTE LTD.
 # All rights reserved. This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v1.0
 # which accompanies this distribution, and is available at
@@ -7,13 +7,11 @@
 
 # Contributors:
 # Morpheus Labs PTE LTD.
-FROM eclipse/ubuntu_jre
+FROM node:7.4-alpine
 
-# update the repository sources list
-# and install dependencies
-RUN apt-get update \
-    && apt-get install -y curl git python build-essential \
+RUN apk add -t .gyp --no-cache git python g++ make \
     && npm install -g ethereumjs-testrpc@3.0.x \
-    && apt-get -y autoclean
+    && apk del .gyp
+RUN apk add --update bash && rm -rf /var/cache/apk/*
 EXPOSE 8545
 ENTRYPOINT ["testrpc"]

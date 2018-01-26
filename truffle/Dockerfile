@@ -16,4 +16,7 @@ RUN apt-get update \
     && apt-get install -y curl git python build-essential \
     && npm install -g truffle@3.2.x \
     && apt-get -y autoclean
+RUN git clone https://github.com/ethereum/browser-solidity
+cd browser-solidity
+
 CMD tail -f /dev/null
